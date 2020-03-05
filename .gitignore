@@ -1,0 +1,3 @@
+todovenv/*
+*.pyc
+app/view/package-lock.json

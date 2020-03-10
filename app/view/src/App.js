@@ -8,7 +8,7 @@ import Header from './components/layout';
 import AddTodo from './components/AddTodo';
 import Todos from './components/Todos';
 import About from './components/pages/about';
-
+import { v4 as uuidv4 } from 'uuid';
 import './App.css';
 
 
@@ -48,6 +48,7 @@ class App extends React.Component {
   // Add Todo
   addTodo = (title) => {
     axios.post(requestUrl, {
+      id: uuidv4(),
       title,
       completed:false
     }).then(res => this.setState({ 

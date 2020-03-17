@@ -34,5 +34,9 @@ def delete_todo(todo_id):
 
 @todo_api.route('/todo/<todo_id>', methods=['PUT'])
 def change_todo_state(todo_id):
-    print("todo_id: ", todo_id)
-    return Response(status=200)
+    todo = Todo.query.filter_by(id=todo_id).first()
+    todo.is_completed = not todo.is_completed
+    db.session.commit()
+    return Response(status=200, 
+                    response=json.dumps(todo.is_completed),
+                    mimetype='application/json')

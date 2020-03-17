@@ -23,17 +23,23 @@ class App extends React.Component {
   // Get all Todos
   componentDidMount() {
     axios.get(requestUrl)
-      .then(res => this.setState({ todos: res.data }));
+      .then(res => this.setState({ 
+        todos: res.data 
+      }));
   }
 
-  // Toggle complete
   markComplete = (id) => {
-    this.setState({ todos: this.state.todos.map(todo => {
-      if(todo.id === id){
-        todo.completed = !todo.completed
-      }
-      return todo;
-      })});
+    axios.put(`http://localhost:5000/todo/${id}`).then(
+      (response) => {
+        this.setState({
+          todos: this.state.todos.map(todo => {
+            if (todo.id === id) {
+              todo.completed = response.data
+            }
+            return todo;
+          })
+        })
+    })
   }
 
   // Delete Todo
